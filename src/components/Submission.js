@@ -1,20 +1,18 @@
 import { SubmissionBox } from "./SubmissionBox";
+import { objToCategories} from "../utils/Util";
+
 export const Submission = (props) => {
     const movie = props.movie;
 
-    const categories = {
-        "Title": movie["Title"],
-        "Genre": movie["Genre"],
-        "Actors": movie["Actors"],
-        "Director": movie["Director"],
-        "Year": movie["Year"]
-    }
+    const categories = objToCategories(movie);
+
     return (
-        <tr className="Hint-Box-List">
+        <tr className="Submission-Row">
+            <td className="Submission-Container">{props.attemptNumber}</td>
             {
                 Object.keys(categories).map((cat) => {
                     return (
-                        <SubmissionBox answer={props.answer} category={cat} value={categories[cat]} />
+                        <SubmissionBox answer={props.answer} category={cat} value={categories[cat]} addMatch={props.addMatch}/>
                     )
                 })
             }

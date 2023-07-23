@@ -1,22 +1,28 @@
 import { useState, useEffect } from 'react';
+import './styles/SubmissionTable.css';
 
 export const SubmissionBox = (props) => {
-    const value = props.value;
     const category = props.category;
 
+    const [value, setValue] = useState(props.value);
     const [match, setMatch] = useState(false);
     const [matchList, setMatchList] = useState([]);
 
     useEffect(() => {
         checkMatch();
+        if(props.category == "Year") {
+            if(parseInt(value)>parseInt(props.answer[category])) {
+                setValue(value + "↓");
+            } else if(parseInt(value)<parseInt(props.answer[category])){
+                setValue(value + "↑");
+            }
+        }
     }, []);
 
     const checkMatch = () => {
-        console.log(value);
-        console.log(category);
-        console.log(JSON.stringify(props));
         if (value == props.answer[category]) {
             setMatch("FULL");
+            props.addMatch([value], category);
         } else {
             let guessArr = value.split(",").map(item => item.trim());
             let answerArr = props.answer[category].split(",").map(item => item.trim());
@@ -26,6 +32,7 @@ export const SubmissionBox = (props) => {
             if (matches.length > 0) {
                 setMatch("PARTIAL");
                 setMatchList(matches);
+                props.addMatch(matches, category);
             } else {
                 setMatch("NONE");
             }
@@ -33,16 +40,15 @@ export const SubmissionBox = (props) => {
     }
     return (
         <td 
-            className="Hint-Box-Container"
-            style={(match == "FULL") ? { backgroundColor: "green" } : (match == "PARTIAL") ? { backgroundColor: "yellow" } : {}}
+            className="Submission-Container"
+            style={(match == "FULL") ?
+                { backgroundColor: "green" } :
+                    (match == "PARTIAL") ?
+                    { backgroundColor: "yellow" } :
+                    {}
+            }
         >
-            {match == "PARTIAL" ? matchList.toString() : value}
-            {/* <span
-                className="Hint-Box"
-                style={(match == "FULL") ? { backgroundColor: "green" } : (match == "PARTIAL") ? { backgroundColor: "yellow" } : {}}>
-                {value}
-            </span>
-            <span className="Hint-Box-Subtitle">{category}</span> */}
+            {value}
         </td>
     );
 }

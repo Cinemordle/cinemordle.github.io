@@ -1,6 +1,6 @@
 import Autosuggest from 'react-autosuggest';
 import { useState } from 'react';
-
+import './styles/Autosuggest.css'
 
 
 // When suggestion is clicked, Autosuggest needs to populate the input
@@ -62,7 +62,7 @@ export default function AutosuggestComponent(props) {
 
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
-        placeholder: props.disabled ? 'You won!' : 'Type...',
+        placeholder: props.disabled ? 'Game Over' : 'Type...',
         value: value,
         onChange: onChange,
         disabled: props.disabled
@@ -70,15 +70,17 @@ export default function AutosuggestComponent(props) {
 
     // Finally, render it!
     return (
-        <Autosuggest
-            suggestions={suggestions}
-            onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={onSuggestionsClearRequested}
-            getSuggestionValue={getSuggestionValue}
-            onSuggestionSelected={onSuggestionSelected}
-            renderSuggestion={renderSuggestion}
-            inputProps={inputProps}
-            options={{ disabled: true }}
-        />
+        <div className="AutosuggestWrapper">
+            <Autosuggest
+                suggestions={suggestions}
+                onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+                onSuggestionsClearRequested={onSuggestionsClearRequested}
+                getSuggestionValue={getSuggestionValue}
+                onSuggestionSelected={onSuggestionSelected}
+                renderSuggestion={renderSuggestion}
+                inputProps={inputProps}
+                options={{ disabled: true }}
+            />
+        </div>
     );
 }

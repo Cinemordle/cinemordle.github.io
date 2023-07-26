@@ -34,6 +34,9 @@ function Game() {
         let localStorageMovies = JSON.parse(window.localStorage.getItem('movies'));
         if(localStorageMovies != null && (localStorageMovies.answer == answer)) {
             setMovies(localStorageMovies.movies);
+            for(let movie of movies) {
+                checkMovie(movie);
+            }
             //setMatchMap({...m});
         } else {
             window.localStorage.clear();
@@ -46,6 +49,9 @@ function Game() {
     }, [matchMap]);
 
     useEffect(() => {
+        if(movies.length > 7) {
+            setIsGameOver(true);
+        }
     }, [movies]);
 
     const checkMovie = (movie) => {

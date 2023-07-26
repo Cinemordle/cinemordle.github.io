@@ -1,3 +1,6 @@
+body {
+  background-color: #FFE5D4;
+}
 .App {
   display: flex;
   flex-direction: column;
@@ -6,7 +9,6 @@
   font-weight: 300;
   font-size: 16px;
   font-family: Clarkson, Helvetica, sans-serif;
-  background-color: #FFE5D4;
 }
 
 .App-header {

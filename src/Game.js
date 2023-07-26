@@ -32,7 +32,7 @@ function Game() {
         setAnswer(movieData[randomGeneratorForArray(movieData)]);
         //let m = window.localStorage.getItem('matchMap');
         let localStorageMovies = JSON.parse(window.localStorage.getItem('movies'));
-        if(localStorageMovies != null && (localStorageMovies.answer != answer)) {
+        if(localStorageMovies != null && (localStorageMovies.answer == answer)) {
             setMovies(localStorageMovies.movies);
             //setMatchMap({...m});
         } else {
